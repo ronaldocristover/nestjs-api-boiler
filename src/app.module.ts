@@ -5,6 +5,10 @@ import { AppService } from './app.service';
 import configuration from './config/configuration';
 import { CustomLoggerModule } from './modules/shared/custom-logger/custom-logger.module';
 import { PrismaModule } from './modules/shared/prisma/prisma.module';
+import { AuthModule } from './module/users/module/auth/auth.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { UsersModule } from './modules/users/users.module';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
@@ -14,6 +18,8 @@ import { PrismaModule } from './modules/shared/prisma/prisma.module';
     }),
     CustomLoggerModule,
     PrismaModule,
+    AuthModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
