@@ -7,3 +7,50 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model AboutCompany {
+  id        Int      @id @default(autoincrement())
+  title     String   @db.VarChar(191)
+  subtitle  String   @db.VarChar(191)
+  content   String   @db.Text
+  images    Json
+  createdAt DateTime @default(now()) @db.DateTime(3)
+  updatedAt DateTime @updatedAt @db.DateTime(3)
+
+  @@map("about_company")
+}
+
+model Banner {
+  id        Int      @id @default(autoincrement())
+  title     String   @db.VarChar(191)
+  subtitle  String   @db.VarChar(191)
+  content   String   @db.Text
+  images    Json
+  createdAt DateTime @default(now()) @db.DateTime(3)
+  updatedAt DateTime @updatedAt @db.DateTime(3)
+
+  @@map("banner")
+}
+
+model ContactUs {
+  id        Int      @id @default(autoincrement())
+  title     String   @db.VarChar(191)
+  subtitle  String   @db.VarChar(191)
+  content   Json
+  createdAt DateTime @default(now()) @db.DateTime(3)
+  updatedAt DateTime @updatedAt @db.DateTime(3)
+
+  @@map("contact_us")
+}
+
+model BasicCompanyInfo {
+  id        Int      @id @default(autoincrement())
+  phone     String   @db.VarChar(191)
+  email     String   @db.VarChar(191)
+  whatsapp  String   @db.VarChar(191)
+  footer    String   @db.Text
+  createdAt DateTime @default(now()) @db.DateTime(3)
+  updatedAt DateTime @updatedAt @db.DateTime(3)
+
+  @@map("basic_company_info")
+}
