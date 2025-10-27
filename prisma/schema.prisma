@@ -45,6 +45,10 @@ model ContactUs {
 
 model BasicCompanyInfo {
   id        Int      @id @default(autoincrement())
+  logo      String?  @db.Text
+  name      String?  @db.VarChar(191)
+  title     String?  @db.VarChar(191)
+  subtitle  String?  @db.VarChar(191)
   phone     String   @db.VarChar(191)
   email     String   @db.VarChar(191)
   whatsapp  String   @db.VarChar(191)

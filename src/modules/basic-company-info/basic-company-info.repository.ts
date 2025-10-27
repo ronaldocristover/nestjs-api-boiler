@@ -9,7 +9,16 @@ export class BasicCompanyInfoRepository {
   async findOne(id: number): Promise<any> {
     return this.prismaService.basicCompanyInfo.findUnique({
       where: { id },
-      select: { email: true, whatsapp: true, phone: true, footer: true },
+      select: {
+        logo: true,
+        name: true,
+        title: true,
+        subtitle: true,
+        email: true,
+        whatsapp: true,
+        phone: true,
+        footer: true
+      },
     });
   }
 

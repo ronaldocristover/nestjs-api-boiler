@@ -80,6 +80,10 @@ async function main() {
   const basicCompanyInfoData = [
     {
       id: 1,
+      logo: 'https://example.com/company-logo.png',
+      name: '康師傅搭棚工程',
+      title: '專業搭棚工程服務',
+      subtitle: '安全、可靠、專業的棚架解決方案',
       phone: '+1-800-123-4567',
       email: 'ronaldochristover@gmail.com',
       whatsapp: '+6282121180999',
