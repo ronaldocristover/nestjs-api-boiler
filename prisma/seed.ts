@@ -12,7 +12,12 @@ async function main() {
   await prisma.contactUs.deleteMany();
   await prisma.basicCompanyInfo.deleteMany();
   await prisma.user.deleteMany();
-  console.log('🗑️  Cleared existing AboutCompany, Banner, ContactUs, BasicCompanyInfo, and User data');
+  await prisma.quotePrice.deleteMany();
+  console.log(
+    '🗑️  Cleared existing AboutCompany, Banner, ContactUs, BasicCompanyInfo, User, and QuotePrice data',
+  );
+
+  const baseUrl = 'https://pub-e5f46e0c6d2d4313829c38c984304979.r2.dev/static/';
 
   // Seed AboutCompany data
   const aboutCompanies = [
@@ -25,20 +30,20 @@ async function main() {
       images: {
         section1: ['/company-1.png', '/company-2.png'],
         section2: [
-          '/company-logo-1.png',
-          '/company-logo-2.png',
-          '/company-logo-3.png',
-          '/company-logo-1.png',
+          baseUrl + '/company-logo-1.png',
+          baseUrl + '/company-logo-2.png',
+          baseUrl + '/company-logo-3.png',
+          baseUrl + '/company-logo-1.png',
         ],
         section3: [
           {
             type: 'image',
-            src: '/banner-1.jpeg',
+            src: baseUrl + '/banner-1.jpeg',
             alt: 'Scaffolding work 1',
           },
           {
             type: 'image',
-            src: '/banner-2.jpeg',
+            src: baseUrl + '/banner-2.jpeg',
             alt: 'Scaffolding work 2',
           },
         ],
@@ -54,10 +59,7 @@ async function main() {
       subtitle: 'Manage Your Tasks Efficiently',
       content:
         'This application is designed to help users manage their tasks efficiently. It offers',
-      images: [
-        'https://www.edrawsoft.com/templates/images/vertical-certificate.png',
-        'https://www.edrawsoft.com/templates/images/vertical-certificate.png',
-      ],
+      images: [baseUrl + '/certificate.jpeg', baseUrl + '/certificate.jpeg'],
     },
   ];
 
@@ -80,7 +82,7 @@ async function main() {
   const basicCompanyInfoData = [
     {
       id: 1,
-      logo: 'https://example.com/company-logo.png',
+      logo: baseUrl + '/logo.png',
       name: '康師傅搭棚工程',
       title: '專業搭棚工程服務',
       subtitle: '安全、可靠、專業的棚架解決方案',
@@ -88,6 +90,59 @@ async function main() {
       email: 'ronaldochristover@gmail.com',
       whatsapp: '+6282121180999',
       footer: '康師傅搭棚工程 © 版權所有 2026。保留所有權利。',
+    },
+  ];
+
+  // Seed QuotePrice data
+  const quotePriceData = [
+    {
+      id: 1,
+      title: 'About This Application',
+      subtitle: 'Manage Your Tasks Efficiently',
+      content: [
+        {
+          title: 'About This Application',
+          subtitle: 'Manage Your Tasks Efficiently',
+          content:
+            'This application is designed to help users manage their tasks efficiently. It offers',
+          order: 1,
+        },
+        {
+          title: 'About This Application',
+          subtitle: 'Manage Your Tasks Efficiently',
+          content:
+            'This application is designed to help users manage their tasks efficiently. It offers',
+          order: 2,
+        },
+        {
+          title: 'About This Application',
+          subtitle: 'Manage Your Tasks Efficiently',
+          content:
+            'This application is designed to help users manage their tasks efficiently. It offers',
+          order: 3,
+        },
+        {
+          title: 'About This Application',
+          subtitle: 'Manage Your Tasks Efficiently',
+          content:
+            'This application is designed to help users manage their tasks efficiently. It offers',
+          order: 4,
+        },
+        {
+          title: 'About This Application',
+          subtitle: 'Manage Your Tasks Efficiently',
+          content:
+            'This application is designed to help users manage their tasks efficiently. It offers',
+          order: 5,
+        },
+        {
+          title: 'About This Application',
+          subtitle: 'Manage Your Tasks Efficiently',
+          content:
+            'This application is designed to help users manage their tasks efficiently. It offers',
+          order: 6,
+        },
+      ],
     },
   ];
 
@@ -130,6 +185,13 @@ async function main() {
     });
   }
 
+  // Insert the QuotePrice data
+  for (const quotePrice of quotePriceData) {
+    await prisma.quotePrice.create({
+      data: quotePrice,
+    });
+  }
+
   // Insert the User data
   for (const user of usersData) {
     await prisma.user.create({
@@ -140,7 +202,10 @@ async function main() {
   console.log(`✅ Created ${aboutCompanies.length} AboutCompany entries`);
   console.log(`✅ Created ${banners.length} Banner entries`);
   console.log(`✅ Created ${contactUsData.length} ContactUs entries`);
-  console.log(`✅ Created ${basicCompanyInfoData.length} BasicCompanyInfo entries`);
+  console.log(
+    `✅ Created ${basicCompanyInfoData.length} BasicCompanyInfo entries`,
+  );
+  console.log(`✅ Created ${quotePriceData.length} QuotePrice entries`);
   console.log(`✅ Created ${usersData.length} User entries`);
   console.log('🎉 Database seeding completed successfully!');
 }

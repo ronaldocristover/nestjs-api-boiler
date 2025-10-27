@@ -69,3 +69,14 @@ model User {
 
   @@map("user")
 }
+
+model QuotePrice {
+  id        Int      @id @default(autoincrement())
+  title     String   @db.VarChar(191)
+  subtitle  String   @db.VarChar(191)
+  content   Json
+  createdAt DateTime @default(now()) @db.DateTime(3)
+  updatedAt DateTime @updatedAt @db.DateTime(3)
+
+  @@map("quote_price")
+}

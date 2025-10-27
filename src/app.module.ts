@@ -13,6 +13,7 @@ import { BannersModule } from './modules/banners/banners.module';
 import { ContactUsModule } from './modules/contact-us/contact-us.module';
 import { BasicCompanyInfoModule } from './modules/basic-company-info/basic-company-info.module';
 import { UploadModule } from './modules/upload/upload.module';
+import { QuotePriceModule } from './modules/quote-price/quote-price.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { UploadModule } from './modules/upload/upload.module';
     ContactUsModule,
     BasicCompanyInfoModule,
     UploadModule,
+    QuotePriceModule,
   ],
   controllers: [AppController],
   providers: [AppService],
