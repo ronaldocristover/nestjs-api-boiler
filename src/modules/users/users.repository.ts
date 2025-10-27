@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../shared/prisma/prisma.service';
 import { User } from '@prisma/client';
+import { UserResponse, PaginatedUsersResponse } from './types/user-response.type';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -21,7 +22,7 @@ export class UsersRepository {
     return this.prismaService.user.findUnique({ where: { email } });
   }
 
-  async findOne(id: number): Promise<User | null> {
+  async findOne(id: number): Promise<UserResponse | null> {
     return this.prismaService.user.findUnique({
       where: { id },
       select: {
@@ -34,13 +35,7 @@ export class UsersRepository {
     });
   }
 
-  async findAll(page: number = 1, limit: number = 10): Promise<{
-    users: User[];
-    total: number;
-    page: number;
-    limit: number;
-    totalPages: number;
-  }> {
+  async findAll(page: number = 1, limit: number = 10): Promise<PaginatedUsersResponse> {
     const skip = (page - 1) * limit;
 
     const [users, total] = await Promise.all([
@@ -68,7 +63,7 @@ export class UsersRepository {
     };
   }
 
-  async update(id: number, data: { email?: string; password?: string; name?: string }): Promise<User> {
+  async update(id: number, data: { email?: string; password?: string; name?: string }): Promise<UserResponse> {
     let updateData: any = { ...data };
 
     // Hash password if it's being updated
@@ -89,7 +84,7 @@ export class UsersRepository {
     });
   }
 
-  async remove(id: number): Promise<User> {
+  async remove(id: number): Promise<UserResponse> {
     return this.prismaService.user.delete({
       where: { id },
       select: {

@@ -12,6 +12,7 @@ import { UsersModule } from './modules/users/users.module';
 import { BannersModule } from './modules/banners/banners.module';
 import { ContactUsModule } from './modules/contact-us/contact-us.module';
 import { BasicCompanyInfoModule } from './modules/basic-company-info/basic-company-info.module';
+import { UploadModule } from './modules/upload/upload.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { BasicCompanyInfoModule } from './modules/basic-company-info/basic-compa
     BannersModule,
     ContactUsModule,
     BasicCompanyInfoModule,
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [AppService],
