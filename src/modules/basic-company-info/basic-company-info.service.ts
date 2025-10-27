@@ -10,7 +10,9 @@ export class BasicCompanyInfoService {
   ) {}
 
   async findOne(): Promise<any> {
-    const companyInfo = await this.basicCompanyInfoRepository.findOne(this.DEFAULT_ID);
+    const companyInfo = await this.basicCompanyInfoRepository.findOne(
+      this.DEFAULT_ID,
+    );
     return {
       success: true,
       content: companyInfo,

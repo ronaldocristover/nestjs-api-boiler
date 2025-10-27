@@ -1,9 +1,11 @@
-import { Controller, Get, Put } from '@nestjs/common';
+import { Body, Controller, Get, Put } from '@nestjs/common';
 import { BasicCompanyInfoService } from './basic-company-info.service';
 
 @Controller('basic-company-info')
 export class BasicCompanyInfoController {
-  constructor(private readonly basicCompanyInfoService: BasicCompanyInfoService) {}
+  constructor(
+    private readonly basicCompanyInfoService: BasicCompanyInfoService,
+  ) {}
 
   @Get()
   async findOne(): Promise<any> {
@@ -11,7 +13,7 @@ export class BasicCompanyInfoController {
   }
 
   @Put('')
-  async update(data): Promise<void> {
+  async update(@Body() data): Promise<void> {
     await this.basicCompanyInfoService.update(data);
   }
 }

@@ -9,7 +9,9 @@
       "Bash(npm install:*)",
       "Bash(npm run db:seed:*)",
       "Bash(npm test:*)",
-      "Bash(npm run test:cov:*)"
+      "Bash(npm run test:cov:*)",
+      "mcp__ide__getDiagnostics",
+      "Bash(npm run build)"
     ],
     "deny": [],
     "ask": []

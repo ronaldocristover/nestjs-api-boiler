@@ -6,8 +6,11 @@ import { BasicCompanyInfo } from '@prisma/client';
 export class BasicCompanyInfoRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async findOne(id: number): Promise<BasicCompanyInfo | null> {
-    return this.prismaService.basicCompanyInfo.findUnique({ where: { id } });
+  async findOne(id: number): Promise<any> {
+    return this.prismaService.basicCompanyInfo.findUnique({
+      where: { id },
+      select: { email: true, whatsapp: true, phone: true, footer: true },
+    });
   }
 
   async update(id: number, data): Promise<BasicCompanyInfo> {

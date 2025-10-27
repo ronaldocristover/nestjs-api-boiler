@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 
@@ -10,7 +11,8 @@ async function main() {
   await prisma.banner.deleteMany();
   await prisma.contactUs.deleteMany();
   await prisma.basicCompanyInfo.deleteMany();
-  console.log('🗑️  Cleared existing AboutCompany, Banner, ContactUs, and BasicCompanyInfo data');
+  await prisma.user.deleteMany();
+  console.log('🗑️  Cleared existing AboutCompany, Banner, ContactUs, BasicCompanyInfo, and User data');
 
   // Seed AboutCompany data
   const aboutCompanies = [
@@ -85,6 +87,17 @@ async function main() {
     },
   ];
 
+  // Seed User data
+  const hashedPassword = await bcrypt.hash('admin123', 10);
+  const usersData = [
+    {
+      id: 1,
+      email: 'admin@example.com',
+      password: hashedPassword,
+      name: 'Admin User',
+    },
+  ];
+
   // Insert the AboutCompany data
   for (const company of aboutCompanies) {
     await prisma.aboutCompany.create({
@@ -113,10 +126,18 @@ async function main() {
     });
   }
 
+  // Insert the User data
+  for (const user of usersData) {
+    await prisma.user.create({
+      data: user,
+    });
+  }
+
   console.log(`✅ Created ${aboutCompanies.length} AboutCompany entries`);
   console.log(`✅ Created ${banners.length} Banner entries`);
   console.log(`✅ Created ${contactUsData.length} ContactUs entries`);
   console.log(`✅ Created ${basicCompanyInfoData.length} BasicCompanyInfo entries`);
+  console.log(`✅ Created ${usersData.length} User entries`);
   console.log('🎉 Database seeding completed successfully!');
 }
 
