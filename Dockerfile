@@ -56,12 +56,6 @@ USER nestjs
 # Expose port
 EXPOSE 3000
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node dist/healthcheck.js || exit 1
-
-# Use dumb-init to handle signals properly
-ENTRYPOINT ["dumb-init", "--"]
 
 # Start the application
 CMD ["node", "dist/main"]
