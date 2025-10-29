@@ -1,4 +1,4 @@
-import { Controller, Get, Put } from '@nestjs/common';
+import { Body, Controller, Get, Put } from '@nestjs/common';
 import { BannerService } from './banners.service';
 
 @Controller('banners')
@@ -10,8 +10,8 @@ export class BannersController {
     return this.bannerService.findOne();
   }
 
-  @Put('')
-  async update(data): Promise<void> {
+  @Put()
+  async update(@Body() data): Promise<void> {
     await this.bannerService.update(data);
   }
 }
