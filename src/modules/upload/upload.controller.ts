@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { UploadService } from './upload.service';
-import { diskStorage } from 'multer';
+import { memoryStorage } from 'multer';
 import { extname } from 'path';
 
 @Controller('upload')
@@ -19,16 +19,7 @@ export class UploadController {
   @Post('single')
   @UseInterceptors(
     FileInterceptor('file', {
-      storage: diskStorage({
-        destination: './uploads',
-        filename: (req, file, cb) => {
-          const randomName = Array(32)
-            .fill(null)
-            .map(() => Math.round(Math.random() * 16).toString(16))
-            .join('');
-          cb(null, `${randomName}${extname(file.originalname)}`);
-        },
-      }),
+      storage: memoryStorage(),
       fileFilter: (req, file, cb) => {
         // Allow all file types for now
         cb(null, true);
@@ -42,6 +33,7 @@ export class UploadController {
     @UploadedFile() file: Express.Multer.File,
     @Query('folder') folder?: string,
   ) {
+    console.log(file);
     if (!file) {
       return {
         success: false,
@@ -55,16 +47,7 @@ export class UploadController {
   @Post('multiple')
   @UseInterceptors(
     FilesInterceptor('files', 10, {
-      storage: diskStorage({
-        destination: './uploads',
-        filename: (req, file, cb) => {
-          const randomName = Array(32)
-            .fill(null)
-            .map(() => Math.round(Math.random() * 16).toString(16))
-            .join('');
-          cb(null, `${randomName}${extname(file.originalname)}`);
-        },
-      }),
+      storage: memoryStorage(),
       fileFilter: (req, file, cb) => {
         // Allow all file types for now
         cb(null, true);
